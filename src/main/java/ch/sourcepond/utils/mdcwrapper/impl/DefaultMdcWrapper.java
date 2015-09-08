@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadFactory;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -57,5 +58,17 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	@Override
 	public <V> Callable<V> wrap(final Callable<V> pCallback) {
 		return new MdcAwareCallable<>(pCallback);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.sourcepond.utils.mdcwrapper.MdcWrapper#wrap(java.util.concurrent.
+	 * ThreadFactory)
+	 */
+	@Override
+	public ThreadFactory wrap(final ThreadFactory pThreadFactory) {
+		return (ThreadFactory) newProxyInstance(ThreadFactory.class.getClassLoader(),
+				new Class<?>[] { ThreadFactory.class }, new WrapInvocationHandler(pThreadFactory));
 	}
 }

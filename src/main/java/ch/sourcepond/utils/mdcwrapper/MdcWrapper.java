@@ -3,6 +3,7 @@ package ch.sourcepond.utils.mdcwrapper;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * <p>
@@ -76,6 +77,12 @@ public interface MdcWrapper {
 	 *             not assignable from {@link Executor}
 	 */
 	<T extends Executor> T wrap(T pExecutor, Class<T> pInterface);
+
+	/**
+	 * @param pThreadFactory
+	 * @return
+	 */
+	ThreadFactory wrap(ThreadFactory pThreadFactory);
 
 	/**
 	 * @param pRunnable

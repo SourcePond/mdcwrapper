@@ -18,13 +18,13 @@ import java.util.concurrent.Callable;
  *
  */
 final class WrapInvocationHandler implements InvocationHandler {
-	private final Object targetExecutor;
+	private final Object delegate;
 
 	/**
-	 * @param pTargetExecutor
+	 * @param pDelegate
 	 */
-	WrapInvocationHandler(final Object pTargetExecutor) {
-		targetExecutor = pTargetExecutor;
+	WrapInvocationHandler(final Object pDelegate) {
+		delegate = pDelegate;
 	}
 
 	/**
@@ -116,7 +116,7 @@ final class WrapInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
 		try {
-			return method.invoke(targetExecutor, wrap(args));
+			return method.invoke(delegate, wrap(args));
 		} catch (final InvocationTargetException e) {
 			// Always throw original exception to avoid
 			// UndeclaredThrowableExceptions
