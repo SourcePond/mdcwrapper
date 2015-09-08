@@ -1,6 +1,8 @@
 package ch.sourcepond.utils.mdcwrapper.impl;
 
 import static java.lang.reflect.Proxy.newProxyInstance;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
@@ -27,6 +29,11 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Executor> T wrap(final T pExecutor, final Class<T> pInterface) {
+		notNull(pExecutor, "Executor to wrapped is null!");
+		notNull(pInterface, "Executor interface is null!");
+		isTrue(pInterface.isInterface(), "Class specified is not an interface!");
+		isTrue(Executor.class.isAssignableFrom(pInterface), "Interface specified is not assignable from {0}",
+				Executor.class.getName());
 		return (T) newProxyInstance(pInterface.getClassLoader(), new Class<?>[] { pInterface },
 				new WrapInvocationHandler(pExecutor));
 	}

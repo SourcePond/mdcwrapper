@@ -1,5 +1,6 @@
 package ch.sourcepond.utils.mdcwrapper;
 
+import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 
@@ -29,18 +30,34 @@ public interface MdcWrapper {
 
 	/**
 	 * <p>
-	 * Wraps the executor specified into a MDC-aware proxy using the interface
-	 * specified.
+	 * Wraps the executor specified into a MDC-aware proxy using the executor
+	 * interface specified.
 	 * </p>
 	 * 
 	 * <p>
-	 * A proxy created through this method will surround any {@link Runnable} or
-	 * {@link Callable} task into a MDC-aware wrapper. This wrapper will copy
-	 * the MDC context from the master thread (the thread which committed the
-	 * task to the executor) to the pool-thread (the thread which executes the
-	 * task) before the original (wrapped) task is actually executed. After
-	 * execution, the wrapper will cleanup the MDC context on the pool-thread to
-	 * avoid memory leaks.
+	 * The created executor proxy will wrap tasks passed to its methods in
+	 * following cases:
+	 * <ul>
+	 * <li>The method takes one or more {@link Runnable} as argument.</li>
+	 * <li>The method takes one or more {@link Callable} as argument.</li>
+	 * <li>The method takes one or more {@link Collection} of {@link Runnable}
+	 * as argument.</li>
+	 * <li>The method takes one or more {@link Collection} of {@link Callable}
+	 * as argument.</li>
+	 * <li>The method takes one or more one-dimensional array of
+	 * {@link Runnable} as argument.</li>
+	 * <li>The method takes one or more one-dimensional array of
+	 * {@link Callable} as argument.</li>
+	 * </ul>
+	 * </p>
+	 * <p>
+	 * If a collection of tasks is passed to a method on the proxy, all
+	 * contained tasks will be wrapped and added to a new collection. The new
+	 * collection will eventually passed to the according method on the original
+	 * executor. If an array of tasks is passed to a method on the proxy, all
+	 * contained tasks will be wrapped. The wrapped tasks will replace the
+	 * original tasks in the parameter array. In contrast to collections,
+	 * parameter arrays will not be duplicated.
 	 * </p>
 	 * 
 	 * @param <T>
@@ -55,7 +72,8 @@ public interface MdcWrapper {
 	 * @throws NullPointerException
 	 *             Thrown, if either argument is {@code null}
 	 * @throws IllegalArgumentException
-	 *             Thrown, if the class object specified is not an interface.
+	 *             Thrown, if the class specified is not an interface, or, is
+	 *             not assignable from {@link Executor}
 	 */
 	<T extends Executor> T wrap(T pExecutor, Class<T> pInterface);
 
