@@ -13,17 +13,17 @@ import java.util.concurrent.ThreadFactory;
  * </p>
  * 
  * <p>
- * An executor proxy created through this facade will wrap any {@link Runnable}
- * or {@link Callable} task into a MDC-aware wrapper. This wrapper will copy the
+ * A proxy created through this facade will wrap any {@link Runnable} or
+ * {@link Callable} task into a MDC-aware wrapper. This wrapper will copy the
  * MDC context from the master thread (the thread which committed the task to
  * the executor) to the pool-thread (the thread which executes the task) before
- * the original (wrapped) task is actually executed. After execution, the
- * wrapper will cleanup the MDC context on the pool-thread to avoid memory
- * leaks.
+ * the original task is actually executed. After execution, the wrapper will
+ * cleanup the MDC context on the pool-thread to avoid memory leaks.
  * </p>
  * 
  * <p>
- * Collections of tasks are also taken into account when wrapping is performed.
+ * Collections and one-dimensional arrays of tasks are also taken into account
+ * when wrapping is performed.
  * </p>
  * 
  */
