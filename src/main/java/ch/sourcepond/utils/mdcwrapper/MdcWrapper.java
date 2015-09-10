@@ -79,9 +79,9 @@ public interface MdcWrapper {
 	<T extends Executor> T wrap(T pExecutor, Class<T> pInterface);
 
 	/**
-	 * Wraps the thread-factory specified into a MDC-aware proxy. Every task
-	 * passed to the {@link ThreadFactory#newThread(Runnable)} method on the
-	 * proxy will be wrapped before it is eventually passed to the original
+	 * Wraps the {@link ThreadFactory} specified into a MDC-aware proxy. Every
+	 * task passed to the {@link ThreadFactory#newThread(Runnable)} method on
+	 * the proxy will be wrapped before it is eventually passed to the original
 	 * thread-factory specified.
 	 * 
 	 * @param pThreadFactory
@@ -91,14 +91,50 @@ public interface MdcWrapper {
 	ThreadFactory wrap(ThreadFactory pThreadFactory);
 
 	/**
+	 * <p>
+	 * Wraps the {@link Runnable} specified into a MDC-aware proxy. During
+	 * construction of the proxy, the MDC context of the current thread will be
+	 * copied and stored. When the {@link Runnable#run()} method on the proxy is
+	 * called, the copied MDC context will be set on the executing thread. After
+	 * the method finishes, the MDC context on the executing thread will be
+	 * cleared.
+	 * </p>
+	 * 
+	 * <p>
+	 * This method should only be used when the resulting proxy is executed in a
+	 * thread-pool, or, with a thread which was not created by the caller
+	 * thread. If the executor thread is created by the caller thread, it's an
+	 * unnecessary overhead to copy the MDC context because it's already
+	 * inherited from the caller.
+	 * </p>
+	 * 
 	 * @param pRunnable
-	 * @return
+	 *            Runnable to be proxied, must not be {@code null}
+	 * @return New MDC-aware {@link Runnable} proxy, never {@code null}
 	 */
 	Runnable wrap(Runnable pRunnable);
 
 	/**
-	 * @param pCallback
-	 * @return
+	 * <p>
+	 * Wraps the {@link Callable} specified into a MDC-aware proxy. During
+	 * construction of the proxy, the MDC context of the current thread will be
+	 * copied and stored. When the {@link Callable#call()} method on the proxy
+	 * is called, the copied MDC context will be set on the executing thread.
+	 * After the method finishes, the MDC context on the executing thread will
+	 * be cleared.
+	 * </p>
+	 * 
+	 * <p>
+	 * This method should only be used when the resulting proxy is executed in a
+	 * thread-pool, or, with a thread which was not created by the caller
+	 * thread. If the executor thread is created by the caller thread, it's an
+	 * unnecessary overhead to copy the MDC context because it's already
+	 * inherited from the caller.
+	 * </p>
+	 * 
+	 * @param pCallable
+	 *            Callable to be proxied, must not be {@code null}
+	 * @return New MDC-aware {@link Callable} proxy, never {@code null}
 	 */
-	<V> Callable<V> wrap(Callable<V> pCallback);
+	<V> Callable<V> wrap(Callable<V> pCallable);
 }
