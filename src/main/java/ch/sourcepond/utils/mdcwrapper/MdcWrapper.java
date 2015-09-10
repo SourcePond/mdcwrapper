@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * <p>
- * Simple facade to wrap executor services into SLF4J MDC aware proxies. See the
+ * Simple facade to wrap different objects into SLF4J MDC aware proxies. See the
  * <a href="http://logback.qos.ch/manual/mdc.html#managedThreads">logback
  * documentation</a> for more information about mapped diagnostic context.
  * </p>

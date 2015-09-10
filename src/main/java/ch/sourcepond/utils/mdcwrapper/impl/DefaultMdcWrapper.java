@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
 /**
- * @author rolandhauser
+ * Default implementation of the {@link MdcWrapper} interface.
  *
  */
 @Named
@@ -46,6 +46,7 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	 */
 	@Override
 	public Runnable wrap(final Runnable pRunnable) {
+		notNull(pRunnable, "Runnable to be wrapped is null!");
 		return new MdcAwareRunnable(pRunnable);
 	}
 
@@ -57,6 +58,7 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	 */
 	@Override
 	public <V> Callable<V> wrap(final Callable<V> pCallback) {
+		notNull(pCallback, "Callable to be wrapped is null!");
 		return new MdcAwareCallable<>(pCallback);
 	}
 
@@ -68,6 +70,7 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	 */
 	@Override
 	public ThreadFactory wrap(final ThreadFactory pThreadFactory) {
+		notNull(pThreadFactory, "ThreadFactory to be wrapped is null!");
 		return (ThreadFactory) newProxyInstance(ThreadFactory.class.getClassLoader(),
 				new Class<?>[] { ThreadFactory.class }, new WrapInvocationHandler(pThreadFactory));
 	}
