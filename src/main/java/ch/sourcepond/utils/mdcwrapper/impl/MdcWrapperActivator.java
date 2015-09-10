@@ -23,6 +23,21 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
  *
  */
 public class MdcWrapperActivator implements BundleActivator {
+	private final MdcWrapper wrapper;
+
+	/**
+	 * 
+	 */
+	public MdcWrapperActivator() {
+		this(new DefaultMdcWrapper());
+	}
+
+	/**
+	 * @param pWrapper
+	 */
+	MdcWrapperActivator(final MdcWrapper pWrapper) {
+		wrapper = pWrapper;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -32,7 +47,7 @@ public class MdcWrapperActivator implements BundleActivator {
 	 */
 	@Override
 	public void start(final BundleContext context) throws Exception {
-		context.registerService(MdcWrapper.class, new DefaultMdcWrapper(), null);
+		context.registerService(MdcWrapper.class, wrapper, null);
 	}
 
 	/*
