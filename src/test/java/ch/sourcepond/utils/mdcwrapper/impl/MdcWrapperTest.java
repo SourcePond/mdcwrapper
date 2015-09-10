@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.utils.mdcwrapper.impl;
 
+import static ch.sourcepond.utils.mdcwrapper.impl.Constants.MDC_KEY;
+import static ch.sourcepond.utils.mdcwrapper.impl.Constants.MDC_VALUE;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -38,8 +40,6 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 public abstract class MdcWrapperTest {
 
 	private static class MdcTest {
-		static final String MDC_KEY = "mdcKey";
-		static final String MDC_VALUE = "mdcValue";
 		private final Lock lock = new ReentrantLock();
 		private final Condition condition = lock.newCondition();
 		private String mdcValue;
@@ -151,7 +151,7 @@ public abstract class MdcWrapperTest {
 	 */
 	@Test
 	public void verifyWrapSingleRunnable() throws InterruptedException {
-		MDC.put(MdcTest.MDC_KEY, MdcTest.MDC_VALUE);
+		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.execute(runnable);
 		runnable.verifyMdcValue();
 	}
@@ -161,7 +161,7 @@ public abstract class MdcWrapperTest {
 	 */
 	@Test
 	public void verifyWrapSingleCallable() throws InterruptedException {
-		MDC.put(MdcTest.MDC_KEY, MdcTest.MDC_VALUE);
+		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.submit(callable);
 		callable.verifyMdcValue();
 	}
@@ -171,7 +171,7 @@ public abstract class MdcWrapperTest {
 	 */
 	@Test
 	public void verifyWrapRunnableCollection() throws InterruptedException {
-		MDC.put(MdcTest.MDC_KEY, MdcTest.MDC_VALUE);
+		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.executeAllRunnables(runnableCollection);
 		runnable.verifyMdcValue();
 	}
@@ -181,7 +181,7 @@ public abstract class MdcWrapperTest {
 	 */
 	@Test
 	public void verifyWrapRunnableArray() throws InterruptedException {
-		MDC.put(MdcTest.MDC_KEY, MdcTest.MDC_VALUE);
+		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.executeAllRunnables(runnables);
 		runnable.verifyMdcValue();
 	}
