@@ -65,11 +65,11 @@ public interface MdcWrapper {
 	 *            Type of the executor to be wrapped, must be assignable from
 	 *            {@link Executor}.
 	 * @param pExecutor
-	 *            Executor to wrapped, must not be {@code null}
+	 *            Executor to be proxied, must not be {@code null}
 	 * @param pInterface
 	 *            The interface of the executor; will be used to create the
 	 *            proxy, must not be {@code null}
-	 * @return New wrapper, never {@code null}
+	 * @return New MDC-aware executor proxy, never {@code null}
 	 * @throws NullPointerException
 	 *             Thrown, if either argument is {@code null}
 	 * @throws IllegalArgumentException
@@ -79,8 +79,14 @@ public interface MdcWrapper {
 	<T extends Executor> T wrap(T pExecutor, Class<T> pInterface);
 
 	/**
+	 * Wraps the thread-factory specified into a MDC-aware proxy. Every task
+	 * passed to the {@link ThreadFactory#newThread(Runnable)} method on the
+	 * proxy will be wrapped before it is eventually passed to the original
+	 * thread-factory specified.
+	 * 
 	 * @param pThreadFactory
-	 * @return
+	 *            Thread-factory to be proxied, must not be {@code null}
+	 * @return New MDC-aware thread-factory proxy, never {@code null}
 	 */
 	ThreadFactory wrap(ThreadFactory pThreadFactory);
 
