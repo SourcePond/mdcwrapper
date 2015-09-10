@@ -109,4 +109,39 @@ public class DefaultTestExecutorService extends ScheduledThreadPoolExecutor impl
 			submit(c);
 		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ch.sourcepond.utils.mdcwrapper.impl.TestExecutorService#unwrapped(java.
+	 * lang.Object)
+	 */
+	@Override
+	public void unwrapped(final Object pObj) {
+		// noop
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.sourcepond.utils.mdcwrapper.impl.TestExecutorService#
+	 * unwrappedCollection(java.util.Collection)
+	 */
+	@Override
+	public void unwrappedCollection(final Collection<Object> pCollection) {
+		// noop
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ch.sourcepond.utils.mdcwrapper.impl.TestExecutorService#unwrappedArray(
+	 * java.lang.Object[])
+	 */
+	@Override
+	public void unwrappedArray(final Object[] pArray) {
+		// noop
+	}
 }

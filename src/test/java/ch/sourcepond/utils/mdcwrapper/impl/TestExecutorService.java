@@ -42,4 +42,19 @@ public interface TestExecutorService extends ScheduledExecutorService {
 	 * @param pRunnables
 	 */
 	void executeAllCallables(Callable<?>[] pCallables);
+
+	/**
+	 * @param pObj
+	 */
+	void unwrapped(Object pObj);
+
+	/**
+	 * @param pCollection
+	 */
+	void unwrappedCollection(Collection<Object> pCollection);
+
+	/**
+	 * @param pCollection
+	 */
+	void unwrappedArray(Object[] pArray);
 }

@@ -15,7 +15,6 @@ package ch.sourcepond.utils.mdcwrapper.impl;
 
 import static java.lang.reflect.Array.get;
 import static java.lang.reflect.Array.getLength;
-import static java.lang.reflect.Array.newInstance;
 import static java.lang.reflect.Array.set;
 
 import java.lang.reflect.InvocationHandler;
@@ -71,14 +70,11 @@ final class WrapInvocationHandler implements InvocationHandler {
 		if (size > 0) {
 			final Object firstValue = get(pArg, 0);
 			if ((firstValue instanceof Runnable) || (firstValue instanceof Callable)) {
-				final Object wrapped = newInstance(pArg.getClass().getComponentType(), size);
-				set(wrapped, 0, wrapIfNecessary(firstValue));
+				set(pArg, 0, wrapIfNecessary(firstValue));
 
 				for (int i = 1; i < size; i++) {
-					set(wrapped, i, get(pArg, i));
+					set(pArg, i, wrapIfNecessary(get(pArg, i)));
 				}
-
-				return wrapped;
 			}
 		}
 		return pArg;
