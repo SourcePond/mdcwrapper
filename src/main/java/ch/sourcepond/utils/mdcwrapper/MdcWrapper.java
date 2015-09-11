@@ -86,8 +86,7 @@ public interface MdcWrapper {
 	 * @throws NullPointerException
 	 *             Thrown, if either argument is {@code null}
 	 * @throws IllegalArgumentException
-	 *             Thrown, if the class specified is not an interface, or, is
-	 *             not assignable from {@link Executor}
+	 *             Thrown, if the class specified is not an interface.
 	 */
 	<T extends Executor> T wrap(T pExecutor, Class<T> pInterface);
 

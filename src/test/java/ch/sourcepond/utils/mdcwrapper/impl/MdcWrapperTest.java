@@ -21,6 +21,8 @@ import static org.mockito.Mockito.mock;
 
 import java.util.Collection;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -149,8 +151,97 @@ public abstract class MdcWrapperTest {
 	/**
 	 * 
 	 */
+	/**
+	 * 
+	 */
+	@Test(expected = NullPointerException.class)
+	public void verifyExecutorIsNull() {
+		wrapper.wrap(null, TestExecutorService.class);
+	}
+
+	/**
+	 * 
+	 */
+	@Test(expected = NullPointerException.class)
+	public void verifyExecutorInterfaceIsNull() {
+		wrapper.wrap(service, null);
+	}
+
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void verifyClassSpecifiedIsNotAnInterface() {
+		wrapper.wrap((DefaultTestExecutorService) service, DefaultTestExecutorService.class);
+	}
+
+	/**
+	 * 
+	 */
+	@Test(expected = NullPointerException.class)
+	public void verifyWrapNullThreadFactory() {
+		wrapper.wrap((ThreadFactory) null);
+	}
+
+	/**
+	 * @throws InterruptedException
+	 * 
+	 */
 	@Test
-	public void verifyWrapSingleRunnable() throws InterruptedException {
+	public void verifyWrapThreadFactory() throws InterruptedException {
+		final ThreadFactory factory = Executors.defaultThreadFactory();
+		final ThreadFactory wrappedFactory = wrapper.wrap(factory);
+		MDC.put(MDC_KEY, MDC_VALUE);
+		final Thread th = wrappedFactory.newThread(runnable);
+		th.start();
+		th.join();
+		runnable.verifyMdcValue();
+	}
+
+	/**
+	 * 
+	 */
+	@Test(expected = NullPointerException.class)
+	public void verifyWrapNullRunnable() {
+		wrapper.wrap((Runnable) null);
+	}
+
+	/**
+	 * @throws InterruptedException
+	 * 
+	 */
+	@Test
+	public void verifyWrapRunnable() throws InterruptedException {
+		MDC.put(MDC_KEY, MDC_VALUE);
+		service.execute(wrapper.wrap(runnable));
+		runnable.verifyMdcValue();
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test(expected = NullPointerException.class)
+	public void verifyWrapNullCallable() {
+		wrapper.wrap((Callable) null);
+	}
+
+	/**
+	 * @throws InterruptedException
+	 * 
+	 */
+	@Test
+	public void verifyWrapCallable() throws InterruptedException {
+		MDC.put(MDC_KEY, MDC_VALUE);
+		service.submit(wrapper.wrap(callable));
+		callable.verifyMdcValue();
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyExecutorSingleRunnable() throws InterruptedException {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.execute(runnable);
 		runnable.verifyMdcValue();
@@ -160,7 +251,7 @@ public abstract class MdcWrapperTest {
 	 * 
 	 */
 	@Test
-	public void verifyWrapSingleCallable() throws InterruptedException {
+	public void verifyExecutorSingleCallable() throws InterruptedException {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.submit(callable);
 		callable.verifyMdcValue();
@@ -170,7 +261,7 @@ public abstract class MdcWrapperTest {
 	 * 
 	 */
 	@Test
-	public void verifyWrapRunnableCollection() throws InterruptedException {
+	public void verifyExecutorRunnableCollection() throws InterruptedException {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.executeAllRunnables(runnableCollection);
 		runnable.verifyMdcValue();
@@ -180,7 +271,7 @@ public abstract class MdcWrapperTest {
 	 * 
 	 */
 	@Test
-	public void verifyWrapRunnableArray() throws InterruptedException {
+	public void verifyExecutorRunnableArray() throws InterruptedException {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.executeAllRunnables(runnables);
 		runnable.verifyMdcValue();

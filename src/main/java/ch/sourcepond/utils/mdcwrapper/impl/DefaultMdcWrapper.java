@@ -46,8 +46,6 @@ public class DefaultMdcWrapper implements MdcWrapper {
 		notNull(pExecutor, "Executor to wrapped is null!");
 		notNull(pInterface, "Executor interface is null!");
 		isTrue(pInterface.isInterface(), "Class specified is not an interface!");
-		isTrue(Executor.class.isAssignableFrom(pInterface), "Interface specified is not assignable from {0}",
-				Executor.class.getName());
 		return (T) newProxyInstance(pInterface.getClassLoader(), new Class<?>[] { pInterface },
 				new WrapInvocationHandler(pExecutor));
 	}
@@ -84,7 +82,7 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	@Override
 	public ThreadFactory wrap(final ThreadFactory pThreadFactory) {
 		notNull(pThreadFactory, "ThreadFactory to be wrapped is null!");
-		return (ThreadFactory) newProxyInstance(ThreadFactory.class.getClassLoader(),
+		return (ThreadFactory) newProxyInstance(pThreadFactory.getClass().getClassLoader(),
 				new Class<?>[] { ThreadFactory.class }, new WrapInvocationHandler(pThreadFactory));
 	}
 }
