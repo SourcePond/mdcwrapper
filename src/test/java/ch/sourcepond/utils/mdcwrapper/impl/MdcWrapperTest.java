@@ -40,6 +40,9 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
  */
 public abstract class MdcWrapperTest {
 
+	/**
+	 *
+	 */
 	private static class MdcTest {
 		private final Lock lock = new ReentrantLock();
 		private final Condition condition = lock.newCondition();
@@ -107,8 +110,8 @@ public abstract class MdcWrapperTest {
 	private final Runnable[] runnables = new Runnable[] { runnable };
 	private final Collection<Runnable> runnableCollection = asList((Runnable) runnable);
 	private final Callable<?>[] callables = new Callable<?>[] { callable };
-	@SuppressWarnings("rawtypes")
-	private final Collection<Callable> callableCollection = asList((Callable) callable);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private final Collection<Callable<?>> callableCollection = (Collection) asList(callable);
 
 	// Create test-service with exactly one thread
 	private final TestExecutorService service = new DefaultTestExecutorService(1);
@@ -253,6 +256,26 @@ public abstract class MdcWrapperTest {
 	public void verifyExecutorSingleCallable() throws InterruptedException {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		proxy.submit(callable);
+		callable.verifyMdcValue();
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyExecutorCallableCollection() throws InterruptedException {
+		MDC.put(MDC_KEY, MDC_VALUE);
+		proxy.executeAllCallables(callableCollection);
+		callable.verifyMdcValue();
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyExecutorCallableArray() throws InterruptedException {
+		MDC.put(MDC_KEY, MDC_VALUE);
+		proxy.executeAllCallables(callables);
 		callable.verifyMdcValue();
 	}
 
