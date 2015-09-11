@@ -2,4 +2,4 @@
 Simple service to wrap specific objects (executors, thread-factories, runnables and callables) into SLF4J MDC aware proxies. See the Logback documentation at http://logback.qos.ch/manual/mdc.html#managedThreads for more information about mapped diagnostic context. An executor proxy created through this facade will wrap any java.lang.Runnable or java.util.concurrent.Callable task into a MDC-aware wrapper. The wrapper will copy the MDC context from the master thread (the thread which committed the task to the executor) to the pool-thread (the thread which executes the task) before the original task is actually executed. After execution, the wrapper will cleanup the MDC context on the pool-thread to avoid memory leaks.
 
 ## Installation
-The bundle is currently not released and therfore not available from Maven Central.
+The bundle is currently not released and therefore not available from Maven Central.
