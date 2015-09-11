@@ -36,7 +36,6 @@ import org.slf4j.MDC;
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
 /**
- * @author rolandhauser
  *
  */
 public abstract class MdcWrapperTest {

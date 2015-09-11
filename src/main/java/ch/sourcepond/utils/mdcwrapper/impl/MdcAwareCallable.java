@@ -18,7 +18,6 @@ import static org.slf4j.MDC.clear;
 import java.util.concurrent.Callable;
 
 /**
- * @author rolandhauser
  *
  * @param <V>
  */

@@ -18,7 +18,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * @author rolandhauser
  *
  */
 public interface TestExecutorService extends ScheduledExecutorService {

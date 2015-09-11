@@ -19,7 +19,6 @@ import org.osgi.framework.BundleContext;
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
 /**
- * @author rolandhauser
  *
  */
 public class MdcWrapperActivator implements BundleActivator {

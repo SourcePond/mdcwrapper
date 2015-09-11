@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.slf4j.MDC;
 
 /**
- * @author rolandhauser
  *
  */
 public abstract class MdcAwareTest<T extends MdcAware> {

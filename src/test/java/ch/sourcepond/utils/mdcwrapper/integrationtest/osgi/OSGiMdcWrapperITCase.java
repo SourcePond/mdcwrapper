@@ -30,7 +30,6 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 import ch.sourcepond.utils.mdcwrapper.impl.MdcWrapperTest;
 
 /**
- * @author rolandhauser
  *
  */
 @RunWith(PaxExam.class)

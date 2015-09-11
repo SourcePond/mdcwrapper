@@ -16,7 +16,6 @@ package ch.sourcepond.utils.mdcwrapper.impl;
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
 /**
- * @author rolandhauser
  *
  */
 public class DefaultMdcWrapperTest extends MdcWrapperTest {

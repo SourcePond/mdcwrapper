@@ -20,7 +20,6 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * @author rolandhauser
  *
  */
 public class DefaultTestExecutorService extends ScheduledThreadPoolExecutor implements TestExecutorService {

@@ -29,7 +29,6 @@ import org.mockito.stubbing.Answer;
 import org.slf4j.MDC;
 
 /**
- * @author rolandhauser
  *
  */
 public class MdcAwareCallableTest extends MdcAwareTest<MdcAwareCallable<Object>> {

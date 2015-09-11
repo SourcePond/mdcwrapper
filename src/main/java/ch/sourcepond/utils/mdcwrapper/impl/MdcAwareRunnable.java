@@ -16,7 +16,6 @@ package ch.sourcepond.utils.mdcwrapper.impl;
 import static org.slf4j.MDC.clear;
 
 /**
- * @author rolandhauser
  *
  */
 final class MdcAwareRunnable extends MdcAware implements Runnable {
