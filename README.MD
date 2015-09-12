@@ -12,7 +12,7 @@ Without any dependency injection mechanism:
 MdcWrapper wrapper = new DefaultMdcWrapper();
 ```
 
-With Google Guice; DefaultMdcWrappper is annotated with @Named and can also be used with Eclipse Sisu (see https://www.eclipse.org/sisu/).
+With Google Guice; *DefaultMdcWrappper* is annotated with *@Named* and can also be used with Eclipse Sisu (see https://www.eclipse.org/sisu/).
 ```
 Injector injector = Guice.createInjector(new Module() {
 
@@ -26,7 +26,7 @@ Injector injector = Guice.createInjector(new Module() {
 MdcWrapper wrapper = injector.getInstance(MdcWrapper.class);
 ```
 
-The mdcwrapper bundle contains a BundleActivator which export a singleton instance of MdcWrapper as service. You can get a reference to it with a ServiceTracker...
+The mdcwrapper bundle contains an OSGi BundleActivator which exports a singleton instance of MdcWrapper as service to the OSGi service registry. You can get a reference to it with a ServiceTracker...
 ```
 final ServiceTracker<MdcWrapper, MdcWrapper> tracker = new ServiceTracker<>(ctx, MdcWrapper.class, null);
 tracker.open();
