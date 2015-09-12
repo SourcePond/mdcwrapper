@@ -26,7 +26,7 @@ Injector injector = Guice.createInjector(new Module() {
 MdcWrapper wrapper = injector.getInstance(MdcWrapper.class);
 ```
 
-The mdcwrapper bundle contains an OSGi BundleActivator which exports a singleton instance of MdcWrapper as service to the OSGi service registry. You can get a reference to it with a ServiceTracker...
+The mdcwrapper bundle contains an OSGi Bundle-Activator which exports a singleton instance of MdcWrapper as service to the OSGi service registry. You can get a reference to it with a ServiceTracker...
 ```
 final ServiceTracker<MdcWrapper, MdcWrapper> tracker = new ServiceTracker<>(ctx, MdcWrapper.class, null);
 tracker.open();
@@ -38,4 +38,44 @@ MdcWrapper wrapper = tracker.getService();
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 	<reference id="wrapper" interface="ch.sourcepond.utils.mdcwrapper.MdcWrapper" />
 </blueprint>
+```
+
+### Wrap an Executor service
+```
+ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
+ScheduledExecutorService mdcAwareExecutor = wrapper.wrap(executor, ScheduledExecutorService.class);
+```
+
+### Wrap a Thread-factory
+```
+ThreadFactory factory = Executors.defaultThreadFactory();
+ThreadFactory mdcAwareFactory = wrapper.wrap(factory);
+```
+
+### Wrap a single task
+If you cannot wrap a whole executor service, or if you want to implement your own MDC mechanism, you can can use the following methods to wrap single tasks:
+
+For runnables:
+```
+Runnable task = new Runnable() {
+
+	@Override
+	public void run() {
+		// Do some stuff
+	}
+};
+Runnable mdcAwareTask = wrapper.wrap(task);
+```
+
+For callables:
+```
+Callable<Object> task = new Callable<Object>() {
+
+	@Override
+	public Object call() throws Exception {
+		// Do some stuff an return result
+		return null;
+	}
+};
+Callable<Object> mdcAwareTask = wrapper.wrap(task);
 ```
