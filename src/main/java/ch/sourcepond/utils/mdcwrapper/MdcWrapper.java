@@ -45,7 +45,8 @@ public interface MdcWrapper {
 	/**
 	 * <p>
 	 * Wraps the executor specified into a MDC-aware proxy using the executor
-	 * interface specified.
+	 * interface specified. If the executor specified is already a MDC-aware
+	 * proxy, it will be returned without being wrapped.
 	 * </p>
 	 * 
 	 * <p>
@@ -94,7 +95,8 @@ public interface MdcWrapper {
 	 * Wraps the {@link ThreadFactory} specified into a MDC-aware proxy. Every
 	 * task passed to the {@link ThreadFactory#newThread(Runnable)} method on
 	 * the proxy will be wrapped before it is eventually passed to the original
-	 * thread-factory specified.
+	 * thread-factory specified. If the thread-factory specified is already a
+	 * MDC-aware proxy, it will be returned without being wrapped.
 	 * 
 	 * @param pThreadFactory
 	 *            Thread-factory to be proxied, must not be {@code null}
@@ -109,7 +111,8 @@ public interface MdcWrapper {
 	 * copied and stored. When the {@link Runnable#run()} method on the proxy is
 	 * called, the copied MDC context will be set on the executing thread. After
 	 * the method finishes, the MDC context on the executing thread will be
-	 * cleared.
+	 * cleared. If the runnable specified is already MDC-aware, it will be
+	 * returned without being wrapped.
 	 * </p>
 	 * 
 	 * <p>
@@ -133,7 +136,8 @@ public interface MdcWrapper {
 	 * copied and stored. When the {@link Callable#call()} method on the proxy
 	 * is called, the copied MDC context will be set on the executing thread.
 	 * After the method finishes, the MDC context on the executing thread will
-	 * be cleared.
+	 * be cleared. If the callable specified is already MDC-aware, it will be
+	 * returned without being wrapped.
 	 * </p>
 	 * 
 	 * <p>

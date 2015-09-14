@@ -16,11 +16,17 @@ package ch.sourcepond.utils.mdcwrapper.impl;
 import static ch.sourcepond.utils.mdcwrapper.impl.Constants.MDC_KEY;
 import static ch.sourcepond.utils.mdcwrapper.impl.Constants.MDC_VALUE;
 import static java.util.Arrays.asList;
+import static java.util.concurrent.Executors.defaultThreadFactory;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
@@ -237,6 +243,51 @@ public abstract class MdcWrapperTest {
 		MDC.put(MDC_KEY, MDC_VALUE);
 		service.submit(wrapper.wrap(callable));
 		callable.verifyMdcValue();
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	@Test
+	public void verifyWrapNonMdcAwareProxy() throws Exception {
+		final ExecutorService executor = (ExecutorService) Proxy.newProxyInstance(getClass().getClassLoader(),
+				new Class<?>[] { ExecutorService.class }, mock(InvocationHandler.class));
+		assertNotSame(executor, wrapper.wrap(executor, ExecutorService.class));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyDoNotWrapMdcAwareExecutorProxy() {
+		assertSame(proxy, wrapper.wrap(proxy, TestExecutorService.class));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyDoNotWrapMdcAwareThreadFactoryProxy() {
+		final ThreadFactory tf = wrapper.wrap(defaultThreadFactory());
+		assertSame(tf, wrapper.wrap(tf));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyDoNotWrapMdcAwareRunnable() {
+		final Runnable r = wrapper.wrap(runnable);
+		assertSame(r, wrapper.wrap(r));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void verifyDoNotWrapMdcAwareCallable() {
+		final Callable<Object> c = wrapper.wrap(callable);
+		assertSame(c, wrapper.wrap(c));
 	}
 
 	/**

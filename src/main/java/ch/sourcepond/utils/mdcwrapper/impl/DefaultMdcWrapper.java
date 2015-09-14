@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.utils.mdcwrapper.impl;
 
+import static java.lang.reflect.Proxy.getInvocationHandler;
+import static java.lang.reflect.Proxy.isProxyClass;
 import static java.lang.reflect.Proxy.newProxyInstance;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -34,20 +36,35 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 @Singleton
 public class DefaultMdcWrapper implements MdcWrapper {
 
+	/**
+	 * @param pToBeWrapped
+	 * @param pLoader
+	 * @param pInterface
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private <T> T createProxyIfNecessary(final T pToBeWrapped, final ClassLoader pLoader, final Class<T> pInterface) {
+		final Class<?> cl = pToBeWrapped.getClass();
+
+		// If the object is already a MDC-aware wrapper simply return it.
+		if (isProxyClass(cl) && WrapInvocationHandler.class.equals(getInvocationHandler(pToBeWrapped).getClass())) {
+			return pToBeWrapped;
+		}
+		return (T) newProxyInstance(pLoader, new Class<?>[] { pInterface }, new WrapInvocationHandler(pToBeWrapped));
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see ch.sourcepond.utils.mdcwrapper.MdcWrapper#wrap(java.util.concurrent.
 	 * Executor, java.lang.Class)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Executor> T wrap(final T pExecutor, final Class<T> pInterface) {
 		notNull(pExecutor, "Executor to wrapped is null!");
 		notNull(pInterface, "Executor interface is null!");
 		isTrue(pInterface.isInterface(), "Class specified is not an interface!");
-		return (T) newProxyInstance(pInterface.getClassLoader(), new Class<?>[] { pInterface },
-				new WrapInvocationHandler(pExecutor));
+		return createProxyIfNecessary(pExecutor, pInterface.getClassLoader(), pInterface);
 	}
 
 	/*
@@ -58,6 +75,12 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	@Override
 	public Runnable wrap(final Runnable pRunnable) {
 		notNull(pRunnable, "Runnable to be wrapped is null!");
+
+		// If the object is already a MDC-aware wrapper simply return it.
+		if (MdcAwareRunnable.class.equals(pRunnable.getClass())) {
+			return pRunnable;
+		}
+
 		return new MdcAwareRunnable(pRunnable);
 	}
 
@@ -68,9 +91,15 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	 * Callable)
 	 */
 	@Override
-	public <V> Callable<V> wrap(final Callable<V> pCallback) {
-		notNull(pCallback, "Callable to be wrapped is null!");
-		return new MdcAwareCallable<>(pCallback);
+	public <V> Callable<V> wrap(final Callable<V> pCallable) {
+		notNull(pCallable, "Callable to be wrapped is null!");
+
+		// If the object is already a MDC-aware wrapper simply return it.
+		if (MdcAwareCallable.class.equals(pCallable.getClass())) {
+			return pCallable;
+		}
+
+		return new MdcAwareCallable<>(pCallable);
 	}
 
 	/*
@@ -82,7 +111,6 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	@Override
 	public ThreadFactory wrap(final ThreadFactory pThreadFactory) {
 		notNull(pThreadFactory, "ThreadFactory to be wrapped is null!");
-		return (ThreadFactory) newProxyInstance(pThreadFactory.getClass().getClassLoader(),
-				new Class<?>[] { ThreadFactory.class }, new WrapInvocationHandler(pThreadFactory));
+		return createProxyIfNecessary(pThreadFactory, pThreadFactory.getClass().getClassLoader(), ThreadFactory.class);
 	}
 }
