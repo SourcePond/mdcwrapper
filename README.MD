@@ -6,7 +6,7 @@ The bundle is currently not released and therefore not available from Maven Cent
 
 ## Examples
 ### Get an instance of MdcWrapper
-How an instance of MdcWrapper is published depends on the implementation. If you use the default implementation "mdcwrapper-impl" you can consult its  [documentation](https://github.com/SourcePond/mdcwrapper#examples) for further information.
+How an instance of MdcWrapper is published depends on the implementation. If you use the default implementation "mdcwrapper-impl" you can consult its  [documentation](https://github.com/SourcePond/mdcwrapper-impl#examples) for further information.
 
 ### Wrap an Executor service
 ```
