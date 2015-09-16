@@ -48,7 +48,7 @@ public class OSGiMdcWrapperITCase extends MdcWrapperTest {
 	 */
 	@Configuration
 	public Option[] config() throws Exception {
-		return options(mavenBundle("org.mockito", "mockito-all").versionAsInProject(), defaultOptions());
+		return options(mavenBundle("ch.sourcepond.utils", "mdcwrapper-api").versionAsInProject(), defaultOptions());
 	}
 
 	/*
