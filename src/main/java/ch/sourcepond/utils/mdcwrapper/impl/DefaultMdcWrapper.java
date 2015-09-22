@@ -23,8 +23,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
+import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
@@ -32,8 +31,7 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
  * Default implementation of the {@link MdcWrapper} interface.
  *
  */
-@Named
-@Singleton
+@OsgiServiceProvider
 public class DefaultMdcWrapper implements MdcWrapper {
 
 	/**

@@ -8,11 +8,6 @@ import java.util.concurrent.ThreadFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
-import com.google.inject.Binder;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 import ch.sourcepond.utils.mdcwrapper.impl.DefaultMdcWrapper;
 
@@ -28,19 +23,6 @@ public class Examples {
 		final ServiceTracker<MdcWrapper, MdcWrapper> tracker = new ServiceTracker<>(ctx, MdcWrapper.class, null);
 		tracker.open();
 		final MdcWrapper wrapper = tracker.getService();
-	}
-
-	public void getInstanceFromGuice() {
-		final Injector injector = Guice.createInjector(new Module() {
-
-			@Override
-			public void configure(final Binder binder) {
-				// DefaultMdcWrapper is annotated with @Singleton
-				binder.bind(MdcWrapper.class).to(DefaultMdcWrapper.class);
-			}
-		});
-
-		final MdcWrapper wrapper = injector.getInstance(MdcWrapper.class);
 	}
 
 	public void wrapExecutor() {
