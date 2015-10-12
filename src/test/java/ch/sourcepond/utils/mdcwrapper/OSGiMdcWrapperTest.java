@@ -14,10 +14,7 @@ limitations under the License.*/
 package ch.sourcepond.utils.mdcwrapper;
 
 import static ch.sourcepond.testing.bundle.OptionsHelper.defaultOptions;
-import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
-import static org.ops4j.pax.exam.CoreOptions.wrappedBundle;
 
 import javax.inject.Inject;
 
@@ -43,12 +40,7 @@ public class OSGiMdcWrapperTest extends MdcWrapperIntegrationTest {
 	 */
 	@Configuration
 	public Option[] config() throws Exception {
-		return options(mavenBundle("ch.sourcepond.utils", "mdcwrapper-api").versionAsInProject(),
-				mavenBundle("ch.sourcepond.utils", "mdcwrapper-impl").versionAsInProject(),
-				mavenBundle("org.objenesis", "objenesis").versionAsInProject(),
-				wrappedBundle(maven("ch.sourcepond.utils", "mdcwrapper-impl").classifier("tests")).imports(
-						"org.hamcrest.*;resolution:=optional,org.ops4j.pax.exam.*;resolution:=optional,ch.sourcepond.testing.bundle;resolution:=optional,*"),
-				defaultOptions());
+		return options(defaultOptions("ch.sourcepond.utils.mdcwrapper"));
 	}
 
 	/*
