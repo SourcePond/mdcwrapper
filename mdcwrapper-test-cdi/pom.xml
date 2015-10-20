@@ -13,40 +13,19 @@
 		the specific language governing permissions and limitations under the License. -->
 
 	<parent>
-		<groupId>ch.sourcepond.testing</groupId>
-		<artifactId>cdi-integrationtest</artifactId>
+		<groupId>ch.sourcepond.utils</groupId>
+		<artifactId>mdcwrapper</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ch.sourcepond.utils</groupId>
 	<artifactId>mdcwrapper-test-cdi</artifactId>
 	<inceptionYear>2015</inceptionYear>
 	<description>
 		CDI integration test for bundle mdcwrapper-impl.
 	</description>
 
-	<properties>
-		<version.mdcwrapper-impl>1.0.0-SNAPSHOT</version.mdcwrapper-impl>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>ch.sourcepond.utils</groupId>
-				<artifactId>mdcwrapper-impl</artifactId>
-				<version>${version.mdcwrapper-impl}</version>
-			</dependency>
-			<dependency>
-				<type>test-jar</type>
-				<groupId>ch.sourcepond.utils</groupId>
-				<artifactId>mdcwrapper-impl</artifactId>
-				<version>${version.mdcwrapper-impl}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
+		<!-- Testing -->
 		<dependency>
 			<groupId>ch.sourcepond.utils</groupId>
 			<artifactId>mdcwrapper-impl</artifactId>
@@ -55,6 +34,10 @@
 			<type>test-jar</type>
 			<groupId>ch.sourcepond.utils</groupId>
 			<artifactId>mdcwrapper-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.sourcepond.testing</groupId>
+			<artifactId>cdi-support</artifactId>
 		</dependency>
 	</dependencies>
 </project>
