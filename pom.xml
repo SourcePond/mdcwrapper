@@ -26,4 +26,8 @@
 	<description>
 		Simple facade to wrap executor services into SLF4J MDC aware proxies.
 	</description>
+	
+	<modules>
+		<module>mdcwrapper-api</module>
+	</modules>
 </project>
