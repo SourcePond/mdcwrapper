@@ -29,5 +29,6 @@
 	
 	<modules>
 		<module>mdcwrapper-api</module>
+		<module>mdcwrapper-impl</module>
 	</modules>
 </project>
