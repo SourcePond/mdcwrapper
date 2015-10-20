@@ -37,7 +37,7 @@
 		</dependency>
 		<dependency>
 			<groupId>ch.sourcepond.testing</groupId>
-			<artifactId>sisu-test-support</artifactId>
+			<artifactId>test-support-sisu</artifactId>
 		</dependency>
 	</dependencies>
 </project>

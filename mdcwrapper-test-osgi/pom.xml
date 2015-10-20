@@ -37,7 +37,7 @@
 		</dependency>
 		<dependency>
 			<groupId>ch.sourcepond.testing</groupId>
-			<artifactId>osgi-support</artifactId>
+			<artifactId>test-support-osgi</artifactId>
 		</dependency>
 	</dependencies>
 </project>

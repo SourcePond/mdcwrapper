@@ -37,7 +37,7 @@
 		</dependency>
 		<dependency>
 			<groupId>ch.sourcepond.testing</groupId>
-			<artifactId>cdi-support</artifactId>
+			<artifactId>test-support-cdi</artifactId>
 		</dependency>
 	</dependencies>
 </project>
