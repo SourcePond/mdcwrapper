@@ -23,6 +23,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
+import javax.enterprise.inject.Typed;
+
 import org.ops4j.pax.cdi.api.OsgiServiceProvider;
 
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
@@ -31,6 +33,8 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
  * Default implementation of the {@link MdcWrapper} interface.
  *
  */
+@Typed(MdcWrapper.class) // Necessary to make this component work with Eclipse
+							// Sisu
 @OsgiServiceProvider
 public class DefaultMdcWrapper implements MdcWrapper {
 
