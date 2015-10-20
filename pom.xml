@@ -19,7 +19,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.utils</groupId>
-	<artifactId>mdcwrapper-api</artifactId>
+	<artifactId>mdcwrapper</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
 	<packaging>pom</packaging>
