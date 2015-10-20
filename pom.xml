@@ -30,5 +30,8 @@
 	<modules>
 		<module>mdcwrapper-api</module>
 		<module>mdcwrapper-impl</module>
+		<module>mdcwrapper-test-cdi</module>
+		<module>mdcwrapper-test-osgi</module>
+		<module>mdcwrapper-test-sisu</module>
 	</modules>
 </project>
