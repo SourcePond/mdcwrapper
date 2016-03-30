@@ -13,20 +13,26 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.utils.mdcwrapper;
 
-import static ch.sourcepond.testing.bundle.OptionsHelper.defaultOptions;
+import static ch.sourcepond.testing.OptionsHelper.defaultOptions;
 import static org.ops4j.pax.exam.CoreOptions.options;
 
 import javax.inject.Inject;
 
+import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerClass;
 
-import ch.sourcepond.utils.mdcwrapper.impl.MdcWrapperIntegrationTest;
+import ch.sourcepond.utils.mdcwrapper.impl.MdcWrapperTest;
 
 /**
  *
  */
-public class OSGiMdcWrapperTest extends MdcWrapperIntegrationTest {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerClass.class)
+public class OSGiMdcWrapperTest extends MdcWrapperTest {
 
 	/**
 	 * 
@@ -40,7 +46,7 @@ public class OSGiMdcWrapperTest extends MdcWrapperIntegrationTest {
 	 */
 	@Configuration
 	public Option[] config() throws Exception {
-		return options(defaultOptions("ch.sourcepond.utils.mdcwrapper"));
+		return options(defaultOptions(getClass().getPackage().getName()));
 	}
 
 	/*

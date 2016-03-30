@@ -64,8 +64,7 @@ public interface MdcWrapper {
 	 * <li>The method takes one or more one-dimensional array of
 	 * {@link Callable} as argument.</li>
 	 * </ul>
-	 * </p>
-	 * <p>
+	 * 
 	 * If a collection of tasks is passed to a method on the proxy, all
 	 * contained tasks will be wrapped and added to a new collection. The new
 	 * collection will eventually passed to the according method on the original
@@ -73,7 +72,6 @@ public interface MdcWrapper {
 	 * contained tasks will be wrapped. The wrapped tasks will replace the
 	 * original tasks in the parameter array. In contrast to collections,
 	 * parameter arrays will not be duplicated.
-	 * </p>
 	 * 
 	 * @param <T>
 	 *            Type of the executor to be wrapped, must be assignable from

@@ -11,41 +11,45 @@
 		under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 		OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
 		the specific language governing permissions and limitations under the License. -->
-
 	<parent>
 		<groupId>ch.sourcepond</groupId>
-		<artifactId>module</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<artifactId>bundle-test</artifactId>
+		<version>0.3.1-SNAPSHOT</version>
+		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.utils</groupId>
 	<artifactId>mdcwrapper</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
 	<packaging>pom</packaging>
 	<description>
 		Simple facade to wrap executor services into SLF4J MDC aware proxies.
 	</description>
 	
+	<properties>
+		<impl.version>0.1.0-SNAPSHOT</impl.version>
+	</properties>
+
 	<modules>
 		<module>mdcwrapper-api</module>
 		<module>mdcwrapper-impl</module>
-		<module>mdcwrapper-test-cdi</module>
-		<module>mdcwrapper-test-osgi</module>
-		<module>mdcwrapper-test-sisu</module>
+		<module>mdcwrapper-test</module>
 	</modules>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>ch.sourcepond.utils</groupId>
 				<artifactId>mdcwrapper-impl</artifactId>
-				<version>${project.version}</version>
+				<version>${impl.version}</version>
 			</dependency>
 			<dependency>
+				<scope>test</scope>
 				<type>test-jar</type>
 				<groupId>ch.sourcepond.utils</groupId>
 				<artifactId>mdcwrapper-impl</artifactId>
-				<version>${project.version}</version>
+				<version>${impl.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

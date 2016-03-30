@@ -15,13 +15,13 @@
 	<parent>
 		<groupId>ch.sourcepond</groupId>
 		<artifactId>bundle</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>0.3.1-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.utils</groupId>
 	<artifactId>mdcwrapper-impl</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
 	<packaging>bundle</packaging>
 	<description>
@@ -44,8 +44,26 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>ch.sourcepond.utils</groupId>
 			<artifactId>mdcwrapper-api</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<Bundle-Activator>ch.sourcepond.utils.mdcwrapper.impl.DefaultMdcWrapper</Bundle-Activator>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -23,9 +23,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
-import javax.enterprise.inject.Typed;
-
-import org.ops4j.pax.cdi.api.OsgiServiceProvider;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
 
 import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
 
@@ -33,10 +32,7 @@ import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
  * Default implementation of the {@link MdcWrapper} interface.
  *
  */
-@Typed(MdcWrapper.class) // Necessary to make this component work with Eclipse
-							// Sisu
-@OsgiServiceProvider
-public class DefaultMdcWrapper implements MdcWrapper {
+public class DefaultMdcWrapper implements BundleActivator, MdcWrapper {
 
 	/**
 	 * @param pToBeWrapped
@@ -114,5 +110,23 @@ public class DefaultMdcWrapper implements MdcWrapper {
 	public ThreadFactory wrap(final ThreadFactory pThreadFactory) {
 		notNull(pThreadFactory, "ThreadFactory to be wrapped is null!");
 		return createProxyIfNecessary(pThreadFactory, pThreadFactory.getClass().getClassLoader(), ThreadFactory.class);
+	}
+
+	/**
+	 * @param context
+	 * @throws Exception
+	 */
+	@Override
+	public void start(final BundleContext context) throws Exception {
+		context.registerService(MdcWrapper.class, this, null);
+	}
+
+	/**
+	 * @param context
+	 * @throws Exception
+	 */
+	@Override
+	public void stop(final BundleContext context) throws Exception {
+		// noop; service un-registation is done by the framework automatically
 	}
 }
