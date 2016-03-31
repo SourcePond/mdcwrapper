@@ -11,6 +11,12 @@
 		under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 		OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
 		the specific language governing permissions and limitations under the License. -->
+	<parent>
+		<groupId>ch.sourcepond</groupId>
+		<artifactId>build</artifactId>
+		<version>0.3.1</version>
+		<relativePath />
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.sourcepond.utils</groupId>
 	<artifactId>mdcwrapper</artifactId>
@@ -20,7 +26,7 @@
 	<description>
 		Simple facade to wrap executor services into SLF4J MDC aware proxies.
 	</description>
-	
+
 	<modules>
 		<module>mdcwrapper-api</module>
 		<module>mdcwrapper-impl</module>
