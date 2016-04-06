@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
+import ch.sourcepond.utils.mdcwrapper.api.MdcWrapper;
 
 /**
  * Default implementation of the {@link MdcWrapper} interface.

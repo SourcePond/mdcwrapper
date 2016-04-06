@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 package ch.sourcepond.utils.mdcwrapper.impl;
 
-import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
+import ch.sourcepond.utils.mdcwrapper.api.MdcWrapper;
 
 /**
  *

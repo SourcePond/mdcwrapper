@@ -25,6 +25,7 @@ import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 
+import ch.sourcepond.utils.mdcwrapper.api.MdcWrapper;
 import ch.sourcepond.utils.mdcwrapper.impl.MdcWrapperTest;
 
 /**

@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadFactory;
 import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
-import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
+import ch.sourcepond.utils.mdcwrapper.api.MdcWrapper;
 import ch.sourcepond.utils.mdcwrapper.impl.DefaultMdcWrapper;
 
 @SuppressWarnings("unused")

@@ -39,7 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.MDC;
 
-import ch.sourcepond.utils.mdcwrapper.MdcWrapper;
+import ch.sourcepond.utils.mdcwrapper.api.MdcWrapper;
 
 /**
  *
