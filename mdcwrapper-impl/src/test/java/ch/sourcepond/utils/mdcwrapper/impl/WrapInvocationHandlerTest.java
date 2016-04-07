@@ -29,10 +29,9 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.RejectedExecutionException;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 
 /**
@@ -44,7 +43,7 @@ public class WrapInvocationHandlerTest {
 	 *
 	 * @param <T>
 	 */
-	private class TypeMatcher<T> extends BaseMatcher<T> {
+	private class TypeMatcher<T> implements ArgumentMatcher<T> {
 		private final Class<?> mdcClass;
 
 		/**
@@ -60,8 +59,8 @@ public class WrapInvocationHandlerTest {
 		}
 
 		@Override
-		public void describeTo(final Description description) {
-			description.appendText(mdcClass.getName());
+		public String toString() {
+			return mdcClass.getName();
 		}
 	}
 
