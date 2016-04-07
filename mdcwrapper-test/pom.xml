@@ -19,6 +19,7 @@
 		<relativePath />
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>ch.sourcepond.utils</groupId>
 	<artifactId>mdcwrapper-test</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
