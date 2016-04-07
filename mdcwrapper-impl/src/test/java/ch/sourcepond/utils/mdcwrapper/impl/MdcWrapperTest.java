@@ -20,9 +20,9 @@ import static java.util.concurrent.Executors.defaultThreadFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.concurrent.Callable;
@@ -132,7 +132,6 @@ public abstract class MdcWrapperTest {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	@Before
 	public void setup() throws Exception {
 		wrapper = getWrapper();
@@ -143,7 +142,13 @@ public abstract class MdcWrapperTest {
 		// of the executor are created when the test Callables are submitted.
 		// This would make the test pointless because the threads will then
 		// inherit the MDC directly from the creator-thread.
-		service.submit(mock(Callable.class)).get();
+		service.submit(new Callable<Object>() {
+
+			@Override
+			public Object call() throws Exception {
+				return null;
+			}
+		}).get();
 	}
 
 	/**
@@ -251,7 +256,14 @@ public abstract class MdcWrapperTest {
 	@Test
 	public void verifyWrapNonMdcAwareProxy() throws Exception {
 		final ExecutorService executor = (ExecutorService) Proxy.newProxyInstance(getClass().getClassLoader(),
-				new Class<?>[] { ExecutorService.class }, mock(InvocationHandler.class));
+				new Class<?>[] { ExecutorService.class }, new InvocationHandler() {
+
+					@Override
+					public Object invoke(final Object proxy, final Method method, final Object[] args)
+							throws Throwable {
+						return null;
+					}
+				});
 		assertNotSame(executor, wrapper.wrap(executor, ExecutorService.class));
 	}
 
